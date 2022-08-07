@@ -1,0 +1,79 @@
+<div>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+      <table id="form-reg">
+          <thead>
+              <tr><th><h1>Register</h1></th></tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><h3>First Name</h3></td>
+                  <td><input type="text" id="FirstName" name="FirstName" formControlName="FirstName"></td>
+                  <td >
+                    <ng-container *ngIf="userInput.FirstName.invalid && (userInput.FirstName.dirty ||userInput.FirstName.touched)">
+                      <span *ngIf="userInput.FirstName.errors.required">First name is empty.</span>
+                      <span *ngIf="userInput.FirstName.errors.pattern">First name is invalid.</span>
+                    </ng-container>
+                  </td>
+                  <!--*ngIf="!userInput.FirstName.valid && (userInput.FirstName.dirty ||userInput.FirstName.touched)"-->
+                </tr>
+              <tr>
+                  <td><h3>Last Name</h3></td>
+                  <td><input type="text" formControlName="LastName"></td>
+                  <td *ngIf="!userInput.LastName.valid && (userInput.LastName.dirty ||userInput.LastName.touched)">
+                    <span *ngIf="userInput.LastName.errors.required">First name is empty.</span>
+                    <span *ngIf="userInput.LastName.errors.pattern">First name is invalid.</span>
+                  </td>
+              </tr>
+              <tr>
+                  <td><h3>Email</h3></td>
+                  <td><input type="text" formControlName="Email"></td>
+                  <td *ngIf="!userInput.Email.valid && (userInput.Email.dirty ||userInput.Email.touched)">
+                    <span *ngIf="userInput.Email.errors.required">First name is empty.</span>
+                    <span *ngIf="userInput.Email.errors.pattern">First name is invalid.</span>
+                  </td>
+              </tr>
+              <tr>
+                  <td><h3>Password</h3></td>
+                  <td><input type="password" formControlName="Password"></td>
+                  <td *ngIf="!userInput.Password.valid && (userInput.Password.dirty ||userInput.Password.touched)">
+                    <span *ngIf="userInput.Password.errors.required">Password is empty.</span>
+                    <span *ngIf="userInput.Password.errors.pattern">Password is invalid.</span>
+                  </td>
+              </tr>
+              <tr>
+                  <td><h3>Confirm Password</h3></td>
+                  <td><input type="password" formControlName="RePassword"></td>
+                  <td *ngIf="!userInput.RePassword.valid && (userInput.RePassword.dirty ||userInput.RePassword.touched)">
+                    <span *ngIf="userInput.RePassword.errors.required">Confirm password is empty.</span>
+                    <span *ngIf="userInput.RePassword.errors.pattern">Confirm password is invalid.</span>
+                  </td>
+                  <td>
+                    <span *ngIf="userForm.errors.mismatch">Password mismatch.</span>
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot>
+              <tr><td><button type="submit" [disabled]="!userInput.Password.valid">Register</button></td></tr>
+          </tfoot>
+      </table>
+      <table id="tbl-user-dtls" style="display: none;">
+          <tbody>
+              <tr>
+                  <td><h1>User Details</h1></td>
+              </tr>
+              <tr>
+                  <td><h3>Name</h3></td>
+                  <td><span></span></td>
+              </tr>
+              <tr>
+                  <td><h3>Email</h3></td>
+                  <td><span></span></td>
+              </tr>
+              <tr>
+                  <td><h3>Password</h3></td>
+                  <td><span></span></td>
+              </tr>
+          </tbody>
+      </table>
+  </form>
+</div>

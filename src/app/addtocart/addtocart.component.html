@@ -1,0 +1,75 @@
+<!--  cart modal  -->
+<div class="cart-modal-overlay">
+  <div class="cart-modal">
+    <i id="close-btn" class="fas fa-times"></i>
+      <h1 class="cart-is-empty">Cart is empty</h1>
+
+      <div class="product-rows">
+      </div>
+      <div class="total">
+        <h1 class="cart-total">TOTAL</h1>
+          <span class="total-price" >{{TotalQty}}</span><!--[innerText]="TotalQty"-->
+            <button class="purchase-btn">PURCHASE</button>
+      </div>
+    </div>
+  </div>
+<!--   end of cart modal -->
+<div class="cart-btn">
+  <i id="cart" class="fas fa-shopping-cart"></i>
+    <span class ="cart-quantity">0</span>
+</div>
+<!--  products  -->
+<div class="items-container">
+  <ng-container *ngFor="let e of CartItems">
+    <div class="card-{{e.CartId}} card">
+      <img class="product-image" [src]="e.ImageUrl" alt="">
+        <button class="add-to-cart" (click)="addToCartItem(e.CartId)">Add to cart</button>
+          <span class="product-price">{{e.Price | currency}}</span>
+    </div>
+  </ng-container>
+
+</div>
+<table id="add-to-cart-table">
+  <thead>
+      <tr>
+          <th><h2>Add to Cart</h2></th>
+      </tr>
+      <tr>
+          <td><h4>No</h4></td>
+          <td><h4>Image</h4></td>
+          <td><h4>Price</h4></td>
+          <td><h4>Quantity</h4></td>
+          <td><h4>Action</h4></td>
+      </tr>
+      <tr>
+          <td>
+              <button id="tbl-rem-sel-item-btn" (click)="remFromTbls()" >Remove</button>
+          </td>
+      </tr>
+  </thead>
+  <tbody id="add-to-cart-table-tbody">
+    <ng-container *ngFor="let e of AddToCarts; let i=index">
+      <tr>
+        <td>
+          <input type="hidden" *ngIf="e.Selected==false; then one; else two">
+          <ng-template #one><input type="checkbox" (click)="itemSelected($event, i)" ></ng-template>
+          <ng-template #two><input type="checkbox" (click)="itemSelected($event, i)" checked ></ng-template>
+        </td>
+        <td><img src="{{e.Cart.ImageUrl}}" [width]="100" [height]="100"></td>
+        <td><button type="button" value="0" (click)="chngQty($event,i)">+</button></td>
+        <td>{{e.Cart.Quantity}}</td>
+        <td><button type="button" value="1" (click)="chngQty($event,i)">-</button></td>
+        <td>{{e.Cart.Price | currency}}</td>
+        <td><button type="button" (click)="remItem(i)">X</button></td>
+      </tr>
+    </ng-container>
+  </tbody>
+  <tfoot>
+      <tr>
+          <td>Total</td>
+          <td><span class="tbl-foot-span">{{totalPrice()|currency}}</span></td>
+      </tr>
+  </tfoot>
+</table>
+
+

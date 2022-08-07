@@ -1,0 +1,40 @@
+<style>
+  ul{
+    list-style-type: none;
+  }
+</style>
+	<div class="container">
+		<h2>TODO LIST</h2>
+		<h3>Add Item</h3>
+		<p>
+			<input type="text" [(ngModel)]="taskName"><button (click)="addTask()">Add</button>
+		</p>
+
+		<h3>Todo</h3>
+		<ul id="incomplete-tasks">
+        <li *ngFor="let e1 of tasks; let i=index">
+          <div *ngIf="e1.completed==false">
+            <input type="checkbox" (change)="taskChecked(i, e1.taskname)" >
+            <span style="display: none" *ngIf="e1.editorVisible==false; then show1; else show2"></span>
+            <ng-template #show1><label>{{e1.taskname}}</label></ng-template>
+            <ng-template #show2><input type="text" [value]="e1.taskname" (change)="txtChanged($event,i, e1.taskname)" #show2></ng-template>
+            <button class="edit" (click)="editRow(e1.taskname)">Edit</button>
+            <button class="delete" (click)="deleteRow(e1.taskname)">Delete</button>
+          </div>
+        </li>
+		</ul>
+
+		<h3>Completed</h3>
+		<ul id="completed-tasks">
+        <li *ngFor="let e2 of tasks;let i=index;" >
+          <div *ngIf="e2.completed==true">
+            <input type="checkbox" checked (change)="taskChecked(i, e2.taskname)">
+            <span style="display: none" *ngIf="e2.editorVisible==false; then show1; else show2"></span>
+            <ng-template #show1><label #show1>{{e2.taskname}}</label></ng-template>
+            <ng-template #show2><input type="text" [value]="e2.taskname" (change)="txtChanged($event,i, e2.taskname)" #show2></ng-template>
+            <button class="edit" (click)="editRow(e2.taskname)">Edit</button>
+            <button class="delete" (click)="deleteRow(e2.taskname)">Delete</button>
+          </div>
+        </li>
+		</ul>
+	</div>
